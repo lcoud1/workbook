@@ -1,0 +1,87 @@
+
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'org.zerock'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+
+
+    annotationProcessor(
+            "jakarta.persistence:jakarta.persistence-api",
+            "jakarta.annotation:jakarta.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
+
+    // 모델 처리를 위한 라이브러리 (DTO와 엔티티간의 변환 처리용) -> config.RootConfig에 적용
+    implementation 'org.modelmapper:modelmapper:3.1.0'
+    // 레이아웃 기능을 위한 라이브러리 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" html 추가 필수
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+    // 타입리프 용 코드
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // json 테스트용 -> postman 사용해도 무관 -> 부트3에서 작동 안함
+    //     https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    //     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    //     https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
+    //     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    // 오픈소스 사용으로 변경
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    // 섬내일 추가 603
+    implementation 'net.coobird:thumbnailator:0.4.16'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+sourceSets {
+
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
+}
+
+
+compileJava.dependsOn('clean')

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:text="${list}"></div>
+<div th:text="${map}"></div>
+<div th:text="${dto}"></div>
+<!--/*
+[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]
+{A=AAAA, B=BBBB}
+org.zerock.b01.controller.SampleController$SampleDTO@8e10149
+*/-->
+
+<script th:inline="javascript">
+
+    const list = [[${list}]]
+
+    const map = [[${map}]]
+
+    const dto = [[${dto}]]
+
+    console.log(list)
+    console.log(map)
+    console.log(dto)
+
+</script>
+<!--/* <script> 자바 스크립트 문법에 맞게 변환 됨.-->
+
+<!--    const list = ["Data1","Data2","Data3","Data4","Data5","Data6","Data7","Data8","Data9"]-->
+<!--    -->
+<!--    const map = {"A":"AAAA","B":"BBBB"}-->
+<!--    -->
+<!--    const dto = {"p1":"Value &#45;&#45; p1","p2":"Value &#45;&#45; p2","p3":"Value &#45;&#45; p3"}-->
+<!--    -->
+<!--    console.log(list)-->
+<!--    console.log(map)-->
+<!--    console.log(dto)-->
+<!-- </script> -->
+*/-->
+
+</body>
+</html>

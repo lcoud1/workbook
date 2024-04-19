@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout1.html}">
+<!-- layout:decorate="~{layout/layout1.html}" 공통 양식이 있는 코드
+    헤더, 컨텐트, 푸터, 스크립트 가 들어 있다.
+-->
+<div layout:fragment="content">
+<!-- context 부분이 교체 된다. -->
+  <h1>ex3.html</h1>
+
+</div>
+
+<script layout:fragment="script" th:inline="javascript">
+
+  const arr = [[${arr}]]
+/* 컨트롤러의 ex3메서드서 모델로 넘어온 스트링 배열 ->  const arr = ["AAA","BBB","CCC"] */
+
+</script>

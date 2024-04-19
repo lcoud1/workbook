@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--/*  @로 링크 작성
+        <a th:href="@{http://www.thymeleaf/documentation.html}"> Absolute URL (기본적인 a태그)
+        <a th:href="@{/oreder/list}"> Context-relative URL (내 서버 내 특정 위치로 이동)
+        <a th:href="@{/oreder/details(id=1)}"> Adding Parameter URL (order/details?id=1)
+        <a th:href="@{/oreder/details(id=${orderInfo.seq})}"> 동적 url 처리
+*/-->
+
+
+<a th:href="@{/hello(name='AAA', age= 16)}">Go to /hello</a>
+<!--/*           /hello?name=AAA&age=16       */-->
+
+<a th:href="@{/hello(name='한글 처리', age= 16)}">Go to /hello</a>
+<!--/*           자동으로 url 인코딩 가능        */-->
+
+<a th:href="@{/hello(types=${ {'AA','BB','CC'} }, age= 16)}">Go to /hello</a>
+<!--/*          http://localhost:8080/hello?types=AA&types=BB&types=CC&age=16 -> 30        */-->
+
+   <ul>
+       <li th:each="str,status: ${list}">
+<!--/*           th:each="변수, 상태변수 : 컬렉션"        */-->
+           <span th:if="${status.odd}"> ODD -- [[${str}]]</span>
+           <!--/*           th:if 해당조건이 참일때 렌더링        */-->
+           <span th:unless="${status.odd}"> EVEN -- [[${str}]]</span>
+           <!--/*           th:unless 해당조건이 거짓일때 렌더링        */-->
+       </li>
+   </ul>
+
+   <ul>
+       <li th:each="str,status: ${list}">
+           <span th:text="${status.odd} ?'ODD ---'+${str}"></span>
+           <!--/*           3항 연산자 (  조건 ? 참 : 거짓   )     */-->
+       </li>
+   </ul>
+
+   <ul>
+       <li th:each="str,status: ${list}">
+           <span th:text="${status.odd} ?'ODD ---'+${str} : 'EVEN ---'+${str}"></span>
+       </li>
+   </ul>
+
+   <ul>
+       <li th:each="str,status: ${list}">
+           <th:block th:switch="${status.index % 3}">
+               <!--/*           th:switch 조건에 맞는 case를 렌더링        */-->
+               <span th:case="0">0</span>
+               <span th:case="1">1</span>
+               <span th:case="2">2</span>
+           </th:block>
+       </li>
+   </ul>
+
+
+   <ul>
+        <li th:each="str,status: ${list}">
+            [[${status.index}]] -- [[${str}]]
+        </li>
+    </ul>
+
+
+    <ul>
+        <li th:each="str: ${list}" th:text="${str}"></li>
+        <!--/*   th:each="변수 : 컬렉션"   */-->
+    </ul>
+
+    <ul>
+        <th:block th:each="str: ${list}">
+            <li>[[${str}]]</li>
+        </th:block>
+    </ul>
+
+    <h4>[[${list}]]</h4>
+    <hr/>
+    <h4 th:text="${list}"></h4>
+
+
+</body>
+
+</html>
